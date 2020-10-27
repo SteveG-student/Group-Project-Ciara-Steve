@@ -1,7 +1,5 @@
 import turtle
 
-
-
 def grayscale(image):
     for y in range(image.getHeight()):
         for x in range(image.getWidth()):

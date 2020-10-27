@@ -1,4 +1,5 @@
-import turtle
+from images import Image
+
 
 def grayscale(image):
     for y in range(image.getHeight()):
@@ -9,18 +10,31 @@ def grayscale(image):
             b = int(b * 0.114)
             lum = r + g + b
             image.setPixel(x, y, (lum, lum, lum))
+    return(image)
 
-def main():
-    screen = turtle.Screen()
-    screen.setup(500,500)
-    image = "sunflower.gif"
+def sepia (grayImage):
+    for y in range(grayImage.getHeight()):
+        for x in range(grayImage.getWidth()):
+            (red, green, blue) = grayImage.getPixel(x, y)
+            if red < 63:
+                red = int(red * 1.1)
+                blue = int(blue * 0.9)  
+            elif red < 192:
+                red = int(red * 1.15)
+                blue = int(blue * 0.85)
+            else:
+                red = min(int(red * 1.08), 255)
+                blue = int(blue * 0.93)
+            grayImage.setPixel(x, y, (red, green, blue))
+    return(grayImage)
+            
+    
+def main(filename = "sunflower.gif"):
+    image = Image("sunflower.gif")
+    grayImage = grayscale(image)
+    grayImage.draw()
+    sepiaImage = sepia(grayImage)
+    sepiaImage.draw()
+    
+main()
 
-    t = turtle.Turtle()
-
-    screen.addshape("sunflower.gif")
-    t.shape("sunflower.gif")
-    grayscale(image)
-
-if __name__ == "__main__":           
-
-    main()
